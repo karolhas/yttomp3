@@ -1,21 +1,21 @@
 import axios from "axios";
 import { useRef, useState } from "react";
 import { youtubeParser } from "./utils";
+import logoimg from "./images/arrowimg.png";
 
 export default function App() {
-  const inputUrlRef = useRef<HTMLInputElement | null>(null);
-  const [urlResult, setUrlResult] = useState(null);
+  const inputUrlRef = useRef<HTMLInputElement>(null);
+  const [urlResult, setUrlResult] = useState<string | null>(null);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const youtubeID = youtubeParser(inputUrlRef.current?.value || "");
-    // console.log(youtubeID);
 
     const options = {
-      method: "GET",
+      method: "get",
       url: "https://youtube-mp36.p.rapidapi.com/dl",
       headers: {
-        "X-RapidAPI-Key": import.meta.env.VITE_RAPID_KEY,
+        "X-RapidAPI-Key": import.meta.env.VITE_RAPID_API_KEY as string,
         "X-RapidAPI-Host": "youtube-mp36.p.rapidapi.com",
       },
       params: {
@@ -34,7 +34,10 @@ export default function App() {
 
   return (
     <div className="app">
-      <span className="logo">YTtoMP3</span>
+      <span className="logo">
+        <img className="arrow" src={logoimg} alt="logo" width="32px" />
+        YTtoMP3
+      </span>
 
       <section className="content">
         <h1 className="content_title">YouTube to MP3 Converter</h1>
