@@ -15,7 +15,7 @@ export default function App() {
       method: "get",
       url: "https://youtube-mp36.p.rapidapi.com/dl",
       headers: {
-        "X-RapidAPI-Key": import.meta.env.VITE_RAPID_API_KEY as string,
+        "X-RapidAPI-Key": import.meta.env.VITE_RAPID_API_KEY,
         "X-RapidAPI-Host": "youtube-mp36.p.rapidapi.com",
       },
       params: {
