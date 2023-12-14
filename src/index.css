@@ -16,7 +16,7 @@ body {
 
 body::after {
   content: "";
-  background-image: url("./images/hexagon.png");
+  background-image: url("./images/hexagon.webp");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -68,7 +68,7 @@ body::after {
 
 .content_description {
   font-weight: 400;
-  font-size: 20px;
+  font-size: 18px;
   opacity: 0.9;
   margin-bottom: 2rem;
   text-align: center;
@@ -118,13 +118,45 @@ body::after {
   box-shadow: 0px 4px 15px -4px rgb(108, 108, 112);
 }
 
+footer {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 15rem;
+  bottom: 4vh;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+footer p {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+footer a {
+  text-decoration: none;
+  color: #3751c4;
+  font-weight: 700;
+  transition: 0.2s ease;
+}
+
+footer a:hover {
+  color: #8234ff;
+}
+
 /* RESPONSIVE */
 @media screen and (max-width: 600px) {
   .content {
-    margin-top: 12rem;
+    margin-top: 11rem;
   }
 
   .content_title {
     font-size: 40px;
+  }
+
+  .form .form_input {
+    max-width: 400px;
+    min-width: 330px;
   }
 }

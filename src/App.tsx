@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useRef, useState } from "react";
 import { youtubeParser } from "./utils";
-import logoimg from "./images/arrowimg.png";
+import logoimg from "./images/arrowimg.webp";
 
 export default function App() {
   const inputUrlRef = useRef<HTMLInputElement>(null);
@@ -42,7 +42,7 @@ export default function App() {
       <section className="content">
         <h1 className="content_title">YouTube to MP3 Converter</h1>
         <p className="content_description">
-          Transform YouTube videos into MP3s in just few clicks!
+          Transform Your favourite YouTube videos into MP3s in just few clicks!
         </p>
 
         <form onSubmit={handleSubmit} className="form">
@@ -70,6 +70,13 @@ export default function App() {
           ""
         )}
       </section>
+
+      <footer>
+        <p>©2023 | Created by</p>
+        <a href="https://github.com/karolhas" target="_blank">
+          HSKdev
+        </a>
+      </footer>
     </div>
   );
 }
