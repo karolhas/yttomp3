@@ -158,5 +158,10 @@ footer a:hover {
   .form .form_input {
     max-width: 400px;
     min-width: 330px;
+    height: 44px;
+  }
+
+  .form_button {
+    padding: 12px 20px;
   }
 }
