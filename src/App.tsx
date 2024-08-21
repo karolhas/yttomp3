@@ -53,7 +53,7 @@ export default function App() {
             type="text"
           />
           <button type="submit" className="form_button">
-            Search
+            Convert
           </button>
         </form>
 
