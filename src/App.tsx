@@ -12,6 +12,9 @@ export default function App() {
   const [error, setError] = useState<string | null>(null);
 
   const handleUrlSubmit = async (youtubeUrl: string) => {
+    setError(null);
+    setUrlResult(null);
+
     const youtubeID = youtubeParser(youtubeUrl);
 
     if (!youtubeID) {
@@ -22,7 +25,6 @@ export default function App() {
     try {
       const link = await fetchMp3Link(youtubeID);
       setUrlResult(link);
-      setError(null);
     } catch (err: unknown) {
       const errorResponse = err as ErrorResponse;
       setError(errorResponse.message);
