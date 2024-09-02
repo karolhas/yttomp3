@@ -12,12 +12,8 @@ export const fetchMp3Link = async (youtubeID: string): Promise<string> => {
   }
 
   const options = {
-    method: "get",
-    url: "https://youtube-mp36.p.rapidapi.com/dl",
-    headers: {
-      "X-RapidAPI-Key": apiKey,
-      "X-RapidAPI-Host": "youtube-mp36.p.rapidapi.com",
-    },
+    method: "GET",
+    url: "/api/youtube-mp3/dl",
     params: {
       id: youtubeID,
     },
