@@ -1,34 +1,33 @@
-import axios from "axios";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { youtubeParser } from "./utils";
+import { fetchMp3Link } from "./services/youtubeService";
+import { UrlForm } from "./components/UrlForm";
+import { ErrorMessage } from "./components/ErrorMessage";
+import { DownloadLink } from "./components/DownloadLink";
+import { ErrorResponse } from "./types/ErrorResponse";
 import logoimg from "./images/arrowimg.webp";
 
 export default function App() {
-  const inputUrlRef = useRef<HTMLInputElement>(null);
   const [urlResult, setUrlResult] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const youtubeID = youtubeParser(inputUrlRef.current?.value || "");
+  const handleUrlSubmit = async (youtubeUrl: string) => {
+    setError(null);
+    setUrlResult(null);
 
-    const options = {
-      method: "get",
-      url: "https://youtube-mp36.p.rapidapi.com/dl",
-      headers: {
-        "X-RapidAPI-Key": import.meta.env.VITE_RAPID_API_KEY,
-        "X-RapidAPI-Host": "youtube-mp36.p.rapidapi.com",
-      },
-      params: {
-        id: youtubeID,
-      },
-    };
+    const youtubeID = youtubeParser(youtubeUrl);
 
-    axios(options)
-      .then((res) => setUrlResult(res.data.link))
-      .catch((err) => console.log(err));
+    if (!youtubeID) {
+      setError("Invalid YouTube URL. Please enter a valid URL.");
+      return;
+    }
 
-    if (inputUrlRef.current) {
-      inputUrlRef.current.value = "";
+    try {
+      const link = await fetchMp3Link(youtubeID);
+      setUrlResult(link);
+    } catch (err: unknown) {
+      const errorResponse = err as ErrorResponse;
+      setError(errorResponse.message);
     }
   };
 
@@ -42,33 +41,15 @@ export default function App() {
       <section className="content">
         <h1 className="content_title">YouTube to MP3 Converter</h1>
         <p className="content_description">
-          Transform Your favourite YouTube videos into MP3s in just few clicks!
+          Transform Your favourite YouTube videos into MP3s in just a few
+          clicks!
         </p>
 
-        <form onSubmit={handleSubmit} className="form">
-          <input
-            ref={inputUrlRef}
-            className="form_input"
-            placeholder="Paste a YouTube video URL link here..."
-            type="text"
-          />
-          <button type="submit" className="form_button">
-            Search
-          </button>
-        </form>
+        <UrlForm onSubmit={handleUrlSubmit} />
 
-        {urlResult ? (
-          <a
-            target="_blank"
-            rel="noreferrer"
-            href={urlResult}
-            className="download_btn"
-          >
-            Download MP3
-          </a>
-        ) : (
-          ""
-        )}
+        <ErrorMessage message={error} />
+
+        <DownloadLink url={urlResult} />
       </section>
 
       <footer>
