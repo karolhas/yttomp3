@@ -11,11 +11,20 @@ export const fetchMp3Link = async (youtubeID: string): Promise<string> => {
     } as ErrorResponse;
   }
 
+  const baseUrl =
+    import.meta.env.MODE === "development"
+      ? "/api/youtube-mp3/dl"
+      : "https://youtube-mp36.p.rapidapi.com/dl";
+
   const options = {
     method: "GET",
-    url: "/api/youtube-mp3/dl",
+    url: baseUrl,
     params: {
       id: youtubeID,
+    },
+    headers: {
+      "X-RapidAPI-Key": apiKey,
+      "X-RapidAPI-Host": "youtube-mp36.p.rapidapi.com",
     },
   };
 
